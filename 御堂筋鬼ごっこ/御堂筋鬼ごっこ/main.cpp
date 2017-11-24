@@ -3,6 +3,7 @@
 
 #include "Game.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "DirectGraphics.h"
 #include "DirectInput.h"
 
@@ -66,6 +67,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	DirectGraphics::CreateInstance(hWnd);
 	DirectInput::CreateDirectInput(hWnd);
 	DirectGraphics::GetpInstance()->InitGraphics("Texture/Player.png",game.GetPlayer()->GetPlayerTexture());
+	DirectGraphics::GetpInstance()->InitGraphics("Texture/Enemy.png", game.GetEnemy()->GetEnemyTexture());
 	DWORD SyncOld = timeGetTime();	//	ƒVƒXƒeƒ€ŠÔ‚ğæ“¾
 	DWORD SyncNow;
 

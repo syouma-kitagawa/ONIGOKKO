@@ -22,14 +22,14 @@ public:
 	//描画開始関数
 	void StartRender();
 	//シーンに画像をセットする関数
-	void Render(int textureid, CUSTOMVERTEX vertex[]);
+	void Render(int* textureid, CUSTOMVERTEX vertex[]);
 	//描画終了関数
 	void EndRender();
 	//2D画像読み込み関数
 	//第一引数ファイルパス
 	//第二引数画像を置く場所
-	void InitGraphics(char* filepath, int *texture);
-	void InitGraphicsPermeation(char* filepath, int texture);
+	void InitGraphics(char* filepath, int* texture);
+	void InitGraphicsPermeation(char* filepath, int* texture);
 	//画像を上に方向転換
 	//引数上に向けたい画像のCUSTOMVERTEX
 	void Direction_Up(CUSTOMVERTEX Tmp[]);
@@ -43,10 +43,6 @@ public:
 	//引数左に向けたい画像のCUSTOMVERTEX
 	void Direction_Left(CUSTOMVERTEX Tmp[]);
 	static DirectGraphics* GetpInstance() { return pInstance; }
-	std::vector<LPDIRECT3DTEXTURE9> GetTexture()
-	{
-		return m_pTexture;
-	}
 private:
 	//2Dグラフィックス生成
 	DirectGraphics(HWND hWnd);

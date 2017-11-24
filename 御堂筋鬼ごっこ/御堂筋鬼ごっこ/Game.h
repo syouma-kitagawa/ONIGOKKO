@@ -3,6 +3,7 @@
 
 #include "DirectInput.h"
 class Player;
+class Enemy;
 
 class Game {
 public:
@@ -11,11 +12,10 @@ public:
 	virtual void Draw();
 	virtual void Update();
 	void RunGame();
-	Player* GetPlayer()
-	{
-		return m_pPlayer;
-	}
+	Player* GetPlayer(){return m_pPlayer;}
+	Enemy* GetEnemy() { return m_pEnemy; }
 private:
 	KEYSTATE m_Key[KEYMAX] = { KEY_OFF };
 	Player* m_pPlayer;
+	Enemy* m_pEnemy;
 };

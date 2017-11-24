@@ -15,7 +15,7 @@ DirectGraphics::DirectGraphics(HWND hWnd)
 {
 	// DirectXオブジェクト生成
 	if (FAILED(m_pDirect3D = Direct3DCreate9(D3D_SDK_VERSION)))
-	{
+{
 		MessageBox(0, "DirectXオブジェクトの生成に失敗しました", NULL, MB_OK);
 	}
 	D3DDISPLAYMODE		D3DdisplayMode;
@@ -89,10 +89,10 @@ void DirectGraphics::StartRender()
 	m_pDirect3DDevice->BeginScene();
 }
 //シーンに画像をセットする関数
-void DirectGraphics::Render(int textureid, CUSTOMVERTEX vertex[])
+void DirectGraphics::Render(int* textureid, CUSTOMVERTEX vertex[])
 {
 	// テクスチャをステージに割り当てる
-	m_pDirect3DDevice->SetTexture(0, m_pTexture[textureid]);
+	m_pDirect3DDevice->SetTexture(0, m_pTexture[*textureid]);
 	// 描画
 	m_pDirect3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertex, sizeof(CUSTOMVERTEX));
 }
@@ -122,7 +122,7 @@ void DirectGraphics::InitGraphics(char* filepath,int *texture)
 	}
 }
 //画像透過読み込み関数
-void DirectGraphics::InitGraphicsPermeation(char*filepath,int texture)
+void DirectGraphics::InitGraphicsPermeation(char*filepath,int *texture)
 {
 	//もし同じ画像ファイルがあったら読み込みをしない
 	auto result = std::find(m_FileName.begin(), m_FileName.end(), filepath);
@@ -144,7 +144,7 @@ void DirectGraphics::InitGraphicsPermeation(char*filepath,int texture)
 			NULL,
 			&tmp);
 		m_FileName.push_back(filepath);
-		texture = m_pTexture.size();
+		*texture = m_pTexture.size();
 		m_pTexture.push_back(tmp);
 	}
 }

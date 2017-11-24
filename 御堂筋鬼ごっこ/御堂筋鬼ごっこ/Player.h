@@ -6,12 +6,12 @@
 
 #define PLAYER_W 10
 #define PLAYER_H 10
-#define PLAYER_TU 0.0625
-#define PLAYER_TV 0.0625
+#define PLAYER_TU 1
+#define PLAYER_TV 1
 #define MOVESPEED 2.f
 
-#define INNTIAL_POSX 50.f
-#define INNTIAL_POSY 50.f
+#define PLAYER_INNTIAL_POSX 50.f
+#define PLAYER_INNTIAL_POSY 50.f
 
 class Player : public CharObjectBase {
 public:
@@ -28,14 +28,8 @@ public:
 		LEFT
 	};
 	
-	int* GetPlayerTexture()
-	{
-		return &m_PlayerTexture;
-	}
-	D3DXVECTOR2 GetPos()
-	{
-		return m_Pos;
-	}
+	int* GetPlayerTexture(){return &m_PlayerTexture;}
+	D3DXVECTOR2* GetPos(){return &m_Pos;}
 private:
 	int m_PlayerTexture;
 	Direction m_Directon;
