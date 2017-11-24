@@ -1,6 +1,13 @@
 #include "DirectInput.h"
 
-DirectInput* DirectInput::pInstance;
+DirectInput* DirectInput::pInstance = NULL;
+
+void DirectInput::CreateDirectInput(HWND hWnd)
+{
+	if (pInstance == NULL) {
+		pInstance = new DirectInput(hWnd);
+	}
+}
 
 DirectInput::DirectInput(HWND hWnd)
 {
@@ -41,11 +48,6 @@ DirectInput::~DirectInput()
 	m_pKeyDevice->Release();
 	m_pDInput = NULL;
 	m_pKeyDevice = NULL;
-}
-
-void DirectInput::CreateDirectInput(HWND hWnd)
-{
-	pInstance = new DirectInput(hWnd);
 }
 
 void DirectInput::KeyCheck(KEYSTATE* Key, int DIK)

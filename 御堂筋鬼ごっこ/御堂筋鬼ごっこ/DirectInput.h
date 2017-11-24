@@ -48,14 +48,13 @@ enum KEYKIND
 
 class DirectInput {
 public:
-	DirectInput(HWND hWnd);
 	~DirectInput();
 	static void CreateDirectInput(HWND hWnd);
 	void KeyCheck(KEYSTATE* Key, int DIK);
-
-	static DirectInput* pInstance;
-
+	static DirectInput* GetpInstance() { return pInstance; }
 private:
+	static DirectInput* pInstance;
+	DirectInput(HWND hWnd);
 	LPDIRECTINPUT8 m_pDInput = NULL;
 	LPDIRECTINPUTDEVICE8 m_pKeyDevice = NULL;
 

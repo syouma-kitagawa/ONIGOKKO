@@ -70,10 +70,10 @@ void Player::Draw()
 
 void Player::Update()
 {
-	DirectInput::pInstance->KeyCheck(&m_Key[KEY_W], DIK_W);
-	DirectInput::pInstance->KeyCheck(&m_Key[KEY_A], DIK_A);
-	DirectInput::pInstance->KeyCheck(&m_Key[KEY_S], DIK_S);
-	DirectInput::pInstance->KeyCheck(&m_Key[KEY_D], DIK_D);
+	DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_W], DIK_W);
+	DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_A], DIK_A);
+	DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_S], DIK_S);
+	DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_D], DIK_D);
 	switch (m_Directon)
 	{
 	case Player::UP:
