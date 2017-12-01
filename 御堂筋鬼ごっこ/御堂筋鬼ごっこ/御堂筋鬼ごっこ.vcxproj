@@ -122,20 +122,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DirectGraphics.cpp" />
     <ClCompile Include="DirectInput.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="TimeLimit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CharObject.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="DirectGraphics.h" />
     <ClInclude Include="DirectInput.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="TimeLimit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,7 +4,7 @@
 #include "DirectInput.h"
 class Player;
 class Enemy;
-
+class TimeLimit;
 class Game {
 public:
 	Game();
@@ -18,4 +18,5 @@ private:
 	KEYSTATE m_Key[KEYMAX] = { KEY_OFF };
 	Player* m_pPlayer;
 	Enemy* m_pEnemy;
+	TimeLimit* m_pTimeLimit;
 };

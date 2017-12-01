@@ -29,7 +29,6 @@ DirectGraphics::DirectGraphics(HWND hWnd)
 	// DirectXのデバイスを生成する際に必要な情報を用意
 	D3DPRESENT_PARAMETERS d3dpp;
 	ZeroMemory(&d3dpp, sizeof(D3DPRESENT_PARAMETERS));
-
 	d3dpp.BackBufferFormat = D3DdisplayMode.Format;
 	d3dpp.BackBufferCount = 1;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
