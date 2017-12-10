@@ -2,16 +2,15 @@
 #include <mmsystem.h>
 
 #include "Game.h"
+#include "Map.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "DirectGraphics.h"
 #include "DirectInput.h"
+#include "Map.h"
 
 #define TITLE 	TEXT("ONIGOKKO")
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)
-#define DISPLAY_WIDTH 850
-#define DISPLAY_HIGHT 700
-
 /**
 *メッセージ処理
 */
@@ -62,12 +61,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		hInstance,							// アプリケーションインスタンスのハンドル
 		NULL
 	);
+
 	if (!hWnd) return 0;
 	Game game;
 	DirectGraphics::CreateInstance(hWnd);
 	DirectInput::CreateDirectInput(hWnd);
 	DirectGraphics::GetpInstance()->InitGraphics("Texture/Player.png",game.GetPlayer()->GetPlayerTexture());
 	DirectGraphics::GetpInstance()->InitGraphics("Texture/Enemy.png", game.GetEnemy()->GetEnemyTexture());
+	DirectGraphics::GetpInstance()->InitGraphics("Texture/map.png", game.GetMap()->GetMapTexture());
 	DWORD SyncOld = timeGetTime();	//	システム時間を取得
 	DWORD SyncNow;
 

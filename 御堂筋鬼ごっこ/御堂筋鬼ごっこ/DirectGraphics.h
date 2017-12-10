@@ -42,6 +42,11 @@ public:
 	//画像を左に方向転換
 	//引数左に向けたい画像のCUSTOMVERTEX
 	void Direction_Left(CUSTOMVERTEX Tmp[]);
+	//統合ファイルのアニメーション
+	//第一引数アニメーションさせたい統合ファイルのCUSTOMVERTEX
+	//第二引数アニメーションさせたい統合ファイルのTUの値
+	//第三引数アニメーションさせたい統合ファイルをどれだけずらすか
+	void Animation(CUSTOMVERTEX Tmp[] , float Tuint ,int RightSlide);
 	static DirectGraphics* GetpInstance() { return pInstance; }
 private:
 	//2Dグラフィックス生成

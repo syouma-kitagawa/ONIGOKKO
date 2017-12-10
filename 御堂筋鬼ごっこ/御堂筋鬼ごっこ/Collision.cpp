@@ -1,12 +1,3 @@
 #include "Collision.h"
 
-
-
-Collision::Collision()
-{
-}
-
-
-Collision::~Collision()
-{
-}
+int Collision::m_CollisionNum = 0;

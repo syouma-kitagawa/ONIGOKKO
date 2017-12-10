@@ -1,14 +1,21 @@
 #include "Player.h"
 #include "DirectGraphics.h"
 #include "DirectInput.h"
-
-Player::Player() :m_Pos(PLAYER_INNTIAL_POSX, PLAYER_INNTIAL_POSY)
+#include "CollisionManager.h"
+#include "Map.h"
+Player::Player(Map* map) :m_Pos(PLAYER_INNTIAL_POSX, PLAYER_INNTIAL_POSY)
 {
-	
+	m_pMap = map;
+	/*m_Collision = new Collision();
+	m_Collision->SetPosition(m_Pos);
+	m_Collision->SetSize(D3DXVECTOR2(PLAYER_W * 2, PLAYER_W * 2));
+	m_Collision->SetCoolisionId(Collision::PLAYER);
+	CollisionManager::GetcollisionManager()->AddCollision(m_Collision);*/
 }
 
 Player::~Player()
 {
+	delete m_Collision;
 }
 
 void Player::Draw()
@@ -26,71 +33,95 @@ void Player::Draw()
 		PlayerDraw[i].x += m_Pos.x;
 		PlayerDraw[i].y += m_Pos.y;
 	}
-	//元の画像を上に方向転換する
+	static int Fcount = 0;
+	int remainder = Fcount % 20;
+	//プレイヤーの向きにごとにアニメーションを変える
+
 	switch (m_Directon)
 	{
 	case Player::UP:
-		DirectGraphics::GetpInstance()->Direction_Up(PlayerDraw);
+
+		if (remainder <= 9) {
+			DirectGraphics::GetpInstance()->Animation(PlayerDraw, PLAYER_TU, 4);
+			DirectGraphics::GetpInstance()->Render(&m_PlayerTexture, PlayerDraw);
+		}
+		else if (remainder <= 19) {
+			DirectGraphics::GetpInstance()->Animation(PlayerDraw, PLAYER_TU, 5);
+			DirectGraphics::GetpInstance()->Render(&m_PlayerTexture, PlayerDraw);
+		}
 		break;
 	case Player::DOWN:
-		DirectGraphics::GetpInstance()->Direction_Down(PlayerDraw);
+		if (remainder <= 9) {
+			DirectGraphics::GetpInstance()->Animation(PlayerDraw, PLAYER_TU, 0);
+			DirectGraphics::GetpInstance()->Render(&m_PlayerTexture, PlayerDraw);
+		}
+		else if (remainder <= 19) {
+			DirectGraphics::GetpInstance()->Animation(PlayerDraw, PLAYER_TU, 1);
+			DirectGraphics::GetpInstance()->Render(&m_PlayerTexture, PlayerDraw);
+		}
 		break;
 	case Player::RIGHT:
-		DirectGraphics::GetpInstance()->Direction_Right(PlayerDraw);
+		if (remainder <= 9) {
+			DirectGraphics::GetpInstance()->Animation(PlayerDraw, PLAYER_TU, 2);
+			DirectGraphics::GetpInstance()->Render(&m_PlayerTexture, PlayerDraw);
+		}
+		else if (remainder <= 19) {
+			DirectGraphics::GetpInstance()->Animation(PlayerDraw, PLAYER_TU, 3);
+			DirectGraphics::GetpInstance()->Render(&m_PlayerTexture, PlayerDraw);
+		}
 		break;
 	case Player::LEFT:
+		if (remainder <= 9) {
+			DirectGraphics::GetpInstance()->Animation(PlayerDraw, PLAYER_TU, 6);
+			DirectGraphics::GetpInstance()->Render(&m_PlayerTexture, PlayerDraw);
+		}
+		else if (remainder <= 19) {
+			DirectGraphics::GetpInstance()->Animation(PlayerDraw, PLAYER_TU, 7);
+			DirectGraphics::GetpInstance()->Render(&m_PlayerTexture, PlayerDraw);
+		}
 		break;
 	}
-	static int m_Fcount = 0;
-	int remainder = m_Fcount % 15;
-	if (remainder <= 4){
-		DirectGraphics::GetpInstance()->Render(&m_PlayerTexture, PlayerDraw);
-	}
-	else if (remainder <= 9){
-		PlayerDraw[0].tu += PLAYER_TU;
-		PlayerDraw[1].tu += PLAYER_TU;
-		PlayerDraw[2].tu += PLAYER_TU;
-		PlayerDraw[3].tu += PLAYER_TU;
-		DirectGraphics::GetpInstance()->Render(&m_PlayerTexture, PlayerDraw);
-	}
-	else if (remainder <= 14){
-		PlayerDraw[0].tu += PLAYER_TU * 2;
-		PlayerDraw[1].tu += PLAYER_TU * 2;
-		PlayerDraw[2].tu += PLAYER_TU * 2;
-		PlayerDraw[3].tu += PLAYER_TU * 2;
-		DirectGraphics::GetpInstance()->Render(&m_PlayerTexture, PlayerDraw);
-	}
-	if (m_Fcount != 60){
-		m_Fcount++;
+	if (Fcount != 60){
+		Fcount++;
 	}
 	else{
-		m_Fcount = 0;
+		Fcount = 0;
 	}
 }
 
 void Player::Update()
 {
-	DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_W], DIK_W);
-	DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_A], DIK_A);
-	DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_S], DIK_S);
-	DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_D], DIK_D);
-	switch (m_Directon)
-	{
-	case Player::UP:
-		m_Pos.y -= MOVESPEED;
-		break;
-	case Player::DOWN:
-		m_Pos.y += MOVESPEED;
-		break;
-	case Player::RIGHT:
-		m_Pos.x += MOVESPEED;
-		break;
-	case Player::LEFT:
-		m_Pos.x -= MOVESPEED;
-		break;
-	default:
-		break;
+
+	int** CurrentMap = m_pMap->GetMapDate();
+	int PlayerMapPos_X = m_Pos.x / MAP_W;
+	int PlayerMapPos_Y = m_Pos.y / MAP_H;
+	CurrentMap[PlayerMapPos_Y][PlayerMapPos_X];
+	//これは中心点であたり判定をとっている
+	if (CurrentMap[PlayerMapPos_Y][PlayerMapPos_X] == 0) {
+		m_HitFlg = true;
 	}
+	//当たった処理を書く
+		DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_W], DIK_W);
+		DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_A], DIK_A);
+		DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_S], DIK_S);
+		DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_D], DIK_D);
+		switch (m_Directon)
+		{
+		case Player::UP:
+			m_Pos.y -= MOVESPEED;
+			break;
+		case Player::DOWN:
+			m_Pos.y += MOVESPEED;
+			break;
+		case Player::RIGHT:
+			m_Pos.x += MOVESPEED;
+			break;
+		case Player::LEFT:
+			m_Pos.x -= MOVESPEED;
+			break;
+		default:
+			break;
+		}
 
 	if (m_Key[KEY_W] == KEY_ON){
 		m_Directon = UP;//もしWが押されたら上に向く

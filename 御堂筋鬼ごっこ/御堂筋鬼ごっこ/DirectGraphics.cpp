@@ -14,8 +14,7 @@ void DirectGraphics::CreateInstance(HWND hWnd)
 DirectGraphics::DirectGraphics(HWND hWnd)
 {
 	// DirectXオブジェクト生成
-	if (FAILED(m_pDirect3D = Direct3DCreate9(D3D_SDK_VERSION)))
-{
+	if (FAILED(m_pDirect3D = Direct3DCreate9(D3D_SDK_VERSION))){
 		MessageBox(0, "DirectXオブジェクトの生成に失敗しました", NULL, MB_OK);
 	}
 	D3DDISPLAYMODE		D3DdisplayMode;
@@ -84,7 +83,7 @@ void DirectGraphics::StartRender()
 
 	// 画面の消去
 	m_pDirect3DDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0x00, 0x00, 0x00), 1.0, 0);
-	// 描画を開始%
+	// 描画を開始
 	m_pDirect3DDevice->BeginScene();
 }
 //シーンに画像をセットする関数
@@ -196,4 +195,11 @@ void DirectGraphics::Direction_Left(CUSTOMVERTEX Tmp[])
 	TmpTv = Tmp[2].tv;
 	Tmp[2].tu = Tmp[3].tu;
 	Tmp[3].tu = TmpTv;
+}
+void DirectGraphics::Animation(CUSTOMVERTEX Tmp[],float Tu, int RightSlide)
+{
+	Tmp[0].tu += Tu * RightSlide;
+	Tmp[1].tu += Tu * RightSlide;
+	Tmp[2].tu += Tu * RightSlide;
+	Tmp[3].tu += Tu * RightSlide;
 }
