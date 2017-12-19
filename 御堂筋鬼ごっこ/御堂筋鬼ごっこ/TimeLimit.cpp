@@ -1,7 +1,8 @@
 #include "TimeLimit.h"
+#include "Game.h"
+#include "Event.h"
 
-
-TimeLimit::TimeLimit():m_MultiplesOfTenPos(TIMELIMITPOS_X, TIMELIMITPOS_Y),m_TimeCount(0),m_TimeLimitCount(90)
+TimeLimit::TimeLimit():m_Pos(TIMELIMITPOS_X, TIMELIMITPOS_Y),m_TimeCount(0),m_TimeLimitCount(60)
 {
 }
 
@@ -20,69 +21,42 @@ void TimeLimit::SetTimeLimit()
 	m_TimeCount++;
 	if (m_TimeCount == 60) {
 		m_TimeCount = 0;
-		m_TimeLimitCount--;
+		if (m_TimeLimitCount != 0 && Event::GetInstance()->GetPlayerGameOverFlg() == false) {
+			m_TimeLimitCount--;
+		}
 	}
-	m_TimeNumber[0] = m_TimeLimitCount % 10;
-	m_TimeNumber[1] = m_TimeLimitCount / 10;
 
 }
 void TimeLimit::DrawTimeLimit()
 {
-	CUSTOMVERTEX TenthsDraw[4];
-	CUSTOMVERTEX MultiplesOfTenDraw[4];
-	static CUSTOMVERTEX  LimitTimeVertex[4]{
-		{ -TIMENUMBER_W, -TIMENUMBER_H, 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f },
-		{ TIMENUMBER_W, -TIMENUMBER_H, 1.f, 1.f, 0xFFFFFFFF, TIMENUMBER_TU, 0.f },
-		{ TIMENUMBER_W,  TIMENUMBER_H, 1.f, 1.f, 0xFFFFFFFF, TIMENUMBER_TU, TIMENUMBER_TV },
-		{ -TIMENUMBER_W,  TIMENUMBER_H, 1.f, 1.f, 0xFFFFFFFF, 0.f,TIMENUMBER_TV }
-	};
-	//位置と頂点情報を代入
-	for (int i = 0; i < 4; i++) {
-		MultiplesOfTenDraw[i] = LimitTimeVertex[i];
-		MultiplesOfTenDraw[i].x += m_MultiplesOfTenPos.x;
-		MultiplesOfTenDraw[i].y += m_MultiplesOfTenPos.y;
-	}
-	for (int i = 0; i < 4; i++) {
-		TenthsDraw[i] = LimitTimeVertex[i];
-		TenthsDraw[i].x += m_MultiplesOfTenPos.x + TIMENUMBER_W;
-		TenthsDraw[i].y += m_MultiplesOfTenPos.y + TIMENUMBER_H;
-	}
-//今の数字をみて描画するところswitchか if,elseifでかく
-	for (int i = 0; i < 2; i++) {
-		switch (m_TimeNumber[i])
-		{
-		case ZERO:
+	D3DXVECTOR2 pos = m_Pos;
+	int kWidth = 24;
+	for (int i = 0; i < kMaxNumberOfDigits; ++i) {
 
-			break;
-		case ONE:
+		pos.x -= kWidth + 2.0f;
 
-			break;
-		case TWO:
+		int NumPower = 1;
 
-			break;
-		case THREE:
-
-			break;
-		case FOUR:
-
-			break;
-		case FIVE:
-
-			break;
-		case SIX:
-
-			break;
-		case SEVEN:
-
-			break;
-		case EIGHT:
-
-			break;
-		case NINE:
-
-			break;
-		default:
-			break;
+		for (int j = 0; j < i; ++j){
+			NumPower *= 10;
 		}
+		int num = (m_TimeLimitCount / (NumPower)) % 10;
+		num -= 1;
+
+		CUSTOMVERTEX DrawTime[4];
+		CUSTOMVERTEX  Vertex[4]{
+			{ -TIMENUMBER_W, -TIMENUMBER_H, 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f },
+			{  TIMENUMBER_W, -TIMENUMBER_H, 1.f, 1.f, 0xFFFFFFFF, TIMENUMBER_TU, 0.f },
+			{  TIMENUMBER_W,  TIMENUMBER_H, 1.f, 1.f, 0xFFFFFFFF, TIMENUMBER_TU, TIMENUMBER_TV },
+			{ -TIMENUMBER_W,  TIMENUMBER_H, 1.f, 1.f, 0xFFFFFFFF, 0.f,TIMENUMBER_TV }
+		};
+		//位置と頂点情報を代入
+		for (int k = 0; k < 4; k++) {
+			DrawTime[k] = Vertex[k];
+			DrawTime[k].x += pos.x;
+			DrawTime[k].y += pos.y;
+		}
+			DirectGraphics::GetpInstance()->Animation(DrawTime, TIMENUMBER_TU, num);
+			DirectGraphics::GetpInstance()->Render(&m_TimeNumberTexture, DrawTime);
 	}
 }

@@ -7,8 +7,7 @@ class Collision
 public:
 	enum CollisionId {
 		PLAYER = 0,
-		COOKIE = 1,
-		MAP = 2
+		ENEMY = 1
 	};
 
 	Collision()
@@ -16,13 +15,11 @@ public:
 		m_Id = m_CollisionNum;
 		m_CollisionNum++;
 	};
-
 	~Collision() {};
-	
 	int GetId(){return m_Id;}
 	D3DXVECTOR2 GetPosition(){return m_Position;}
 	D3DXVECTOR2 GetSize(){return m_Size;}
-	CollisionId GetCoolisionId(){return m_CollisionId;}
+	CollisionId GetCollisionId(){return m_CollisionId;}
 	CollisionId GetOtherCollisionId(){return m_OtherCollisionId;}
 
 	void SetCoolisionId(CollisionId CoolisionId){m_CollisionId = CoolisionId;}

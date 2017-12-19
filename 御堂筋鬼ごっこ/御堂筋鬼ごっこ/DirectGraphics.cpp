@@ -1,5 +1,4 @@
 #include "DirectGraphics.h"
-#include <stdio.h>
 
 
 DirectGraphics* DirectGraphics::pInstance = NULL;
@@ -118,6 +117,9 @@ void DirectGraphics::InitGraphics(char* filepath,int *texture)
 		*texture = m_pTexture.size();
 		m_pTexture.push_back(tmp);
 	}
+	else {
+		*texture = NULL;
+	}
 }
 //âÊëúìßâﬂì«Ç›çûÇ›ä÷êî
 void DirectGraphics::InitGraphicsPermeation(char*filepath,int *texture)
@@ -145,6 +147,10 @@ void DirectGraphics::InitGraphicsPermeation(char*filepath,int *texture)
 		*texture = m_pTexture.size();
 		m_pTexture.push_back(tmp);
 	}
+	else {
+		*texture = NULL;
+	}
+
 }
 void DirectGraphics::Direction_Up(CUSTOMVERTEX Tmp[])
 {

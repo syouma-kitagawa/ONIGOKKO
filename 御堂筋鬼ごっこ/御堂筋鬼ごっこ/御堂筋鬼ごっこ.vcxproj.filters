@@ -25,9 +25,6 @@
     <Filter Include="ソース ファイル\Game">
       <UniqueIdentifier>{aab341ee-1b99-43ac-90c0-4c7b9632572d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\BackGround">
-      <UniqueIdentifier>{021383ed-7346-4b64-98d5-0dddfea7b4aa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Collision">
       <UniqueIdentifier>{6913c8ca-f878-4100-b860-5435baec5531}</UniqueIdentifier>
     </Filter>
@@ -36,6 +33,27 @@
     </Filter>
     <Filter Include="ソース ファイル\char\Player">
       <UniqueIdentifier>{f010d216-37b4-4f93-9e5e-de73709927e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{e2919ab7-3a6a-48f2-9b7b-34b21fd11fa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\BackGround">
+      <UniqueIdentifier>{021383ed-7346-4b64-98d5-0dddfea7b4aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\GameClear">
+      <UniqueIdentifier>{9537d13b-46f1-47ef-bed1-e08fd1a5b9f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\GameOver">
+      <UniqueIdentifier>{76ac43f0-49f7-4bef-8ad6-310b9c3822b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\TimeLimit">
+      <UniqueIdentifier>{a54d3d63-ead6-4a8e-8423-a3bf5659fa33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Event">
+      <UniqueIdentifier>{7c06a224-3ab6-48be-b48f-9bbfcd747de5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\char\EnemyManager">
+      <UniqueIdentifier>{2e1ac694-6123-4463-b7e5-65b6a4cb17b8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -51,12 +69,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
-    <ClCompile Include="TimeLimit.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>ソース ファイル\BackGround</Filter>
-    </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>ソース ファイル\Collision</Filter>
     </ClCompile>
@@ -68,6 +80,27 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>ソース ファイル\char\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>ソース ファイル\Scene\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClear.cpp">
+      <Filter>ソース ファイル\Scene\GameClear</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>ソース ファイル\Scene\GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeLimit.cpp">
+      <Filter>ソース ファイル\TimeLimit</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>ソース ファイル\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>ソース ファイル\char\EnemyManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SampleEnemy.cpp">
+      <Filter>ソース ファイル\char\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,12 +116,6 @@
     <ClInclude Include="Game.h">
       <Filter>ソース ファイル\Game</Filter>
     </ClInclude>
-    <ClInclude Include="TimeLimit.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>ソース ファイル\BackGround</Filter>
-    </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>ソース ファイル\Collision</Filter>
     </ClInclude>
@@ -100,6 +127,27 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>ソース ファイル\char\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>ソース ファイル\Scene\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClear.h">
+      <Filter>ソース ファイル\Scene\GameClear</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>ソース ファイル\Scene\GameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeLimit.h">
+      <Filter>ソース ファイル\TimeLimit</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>ソース ファイル\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>ソース ファイル\char\EnemyManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SampleEnemy.h">
+      <Filter>ソース ファイル\char\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

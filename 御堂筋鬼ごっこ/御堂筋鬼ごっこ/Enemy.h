@@ -1,13 +1,15 @@
 #pragma once
 #include "CharObject.h"
+#include "Collision.h"
+#include "EnemyManager.h"
 
-#define ENEMY_W 20.f
-#define ENEMY_H 25.f
+#define ENEMY_W 15.f
+#define ENEMY_H 20.f
 #define ENEMY_TU 0.097f
 #define ENEMY_TV 0.488f
 
-#define ENEMY_INNTIAL_POSX 100.f
-#define ENEMY_INNTIAL_POSY 100.f 
+#define ENEMY_INNTIAL_POSX 140.f
+#define ENEMY_INNTIAL_POSY 120.f 
 
 
 
@@ -25,7 +27,7 @@ public:
 		RIGHT,
 		LEFT
 	};
-	Enemy();
+	Enemy(float InntialPosX,float InntialPosY,float NextPosX,float NextPosY);
 	virtual ~Enemy();
 	virtual void Draw();
 	virtual void Update();
@@ -35,6 +37,10 @@ private:
 	int m_EnemyId;*/
 	int m_EnemyTexture;
 	D3DXVECTOR2 m_Pos;
+	D3DXVECTOR2 m_NextPos;
 	EnemyDirection m_Direction;
+	Collision* m_Collision;
+	int Fcount = 0;
+	bool ReverseFlg = false;
 };
 

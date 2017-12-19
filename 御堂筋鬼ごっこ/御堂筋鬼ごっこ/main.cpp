@@ -5,9 +5,15 @@
 #include "Map.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "TimeLimit.h"
+#include "GameClear.h"
+#include "GameOver.h"
 #include "DirectGraphics.h"
 #include "DirectInput.h"
-#include "Map.h"
+#include "Event.h"
+
+#define DISPLAY_WIDTH 870
+#define DISPLAY_HEIGHT 730
 
 #define TITLE 	TEXT("ONIGOKKO")
 #define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)
@@ -55,7 +61,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		CW_USEDEFAULT,						// ウィンドウの横方向の位置x
 		CW_USEDEFAULT,						// ウィンドウの縦方向の位置y
 		DISPLAY_WIDTH,							// Width（幅）
-		DISPLAY_HIGHT,							// Height（高さ）
+		DISPLAY_HEIGHT,							// Height（高さ）
 		NULL,
 		NULL,
 		hInstance,							// アプリケーションインスタンスのハンドル
@@ -66,9 +72,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	Game game;
 	DirectGraphics::CreateInstance(hWnd);
 	DirectInput::CreateDirectInput(hWnd);
+	Event::CreateInstance();
 	DirectGraphics::GetpInstance()->InitGraphics("Texture/Player.png",game.GetPlayer()->GetPlayerTexture());
-	DirectGraphics::GetpInstance()->InitGraphics("Texture/Enemy.png", game.GetEnemy()->GetEnemyTexture());
-	DirectGraphics::GetpInstance()->InitGraphics("Texture/map.png", game.GetMap()->GetMapTexture());
+	//DirectGraphics::GetpInstance()->InitGraphics("Texture/Enemy.png", game.GetEnemy()->GetEnemyTexture());
+	DirectGraphics::GetpInstance()->InitGraphics("Texture/midousuzi_map.png", game.GetMap()->GetMapTexture());
+	DirectGraphics::GetpInstance()->InitGraphics("Texture/timenumber.png", game.GetTimeLimit()->GetTimeNumberTexture());
+	DirectGraphics::GetpInstance()->InitGraphics("Texture/Clear.png", game.GetGameClear()->ClearTexture());
+	DirectGraphics::GetpInstance()->InitGraphics("Texture/Over.png", game.GetGameOver()->GameOverTexture());
 	DWORD SyncOld = timeGetTime();	//	システム時間を取得
 	DWORD SyncNow;
 

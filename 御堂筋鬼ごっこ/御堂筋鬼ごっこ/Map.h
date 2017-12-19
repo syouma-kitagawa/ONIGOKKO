@@ -5,11 +5,14 @@
 #include <memory.h>
 #include <vector>
 
-#define MAP_W 25
-#define MAP_H 25
+#define MAPTIP_W 25
+#define MAPTIP_H 25
 
-#define DISPLAY_WIDTH 850
-#define DISPLAY_HIGHT 700
+#define MAPTIP_NUM_W 34
+#define MAPTIP_NUM_H 28
+
+#define MAP_WIDTH 855
+#define MAP_HEIGHT 690
 
 
 

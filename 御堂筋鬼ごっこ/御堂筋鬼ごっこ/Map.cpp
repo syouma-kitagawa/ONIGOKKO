@@ -8,13 +8,13 @@ Map::Map()
 	FILE *fp = NULL;
 	fopen_s(&fp, "CSV/Map.csv", "r");
 
-    m_MapDate = new int*[MAP_H];
-	for (int x = 0; x < MAP_H; x++) {
-		m_MapDate[x] = new int[MAP_W];
+    m_MapDate = new int*[MAPTIP_NUM_H];
+	for (int x = 0; x < MAPTIP_NUM_H; x++) {
+		m_MapDate[x] = new int[MAPTIP_NUM_W];
 	}
 	int CollisionCount = 0;
-	for (int i = 0; i < MAP_H; i++) {
-		for (int j = 0; j < MAP_W; j++) {
+	for (int i = 0; i < MAPTIP_NUM_H; i++) {
+		for (int j = 0; j < MAPTIP_NUM_W; j++) {
 			m_MapDate[i][j] = 0;
 			fscanf_s(fp, "%d,", &m_MapDate[i][j]);
 			/*if (m_CookieDate[i][j] == 1) {
@@ -37,9 +37,9 @@ void Map::Draw()
 	CUSTOMVERTEX  MapVertex[4]
 	{
 		{ 0, 0, 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f },
-		{ DISPLAY_WIDTH, 0, 1.f, 1.f, 0xFFFFFFFF,1.f, 0.f },
-		{ DISPLAY_WIDTH,  DISPLAY_HIGHT, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f },
-		{ 0,  DISPLAY_HIGHT, 1.f, 1.f, 0xFFFFFFFF, 0.f,1.f }
+		{ MAP_WIDTH, 0, 1.f, 1.f, 0xFFFFFFFF,1.f, 0.f },
+		{ MAP_WIDTH,  MAP_HEIGHT, 1.f, 1.f, 0xFFFFFFFF, 1.f, 1.f },
+		{ 0,  MAP_HEIGHT, 1.f, 1.f, 0xFFFFFFFF, 0.f,1.f }
 	};
 	DirectGraphics::GetpInstance()->Render(&m_MapTexture, MapVertex);
 }

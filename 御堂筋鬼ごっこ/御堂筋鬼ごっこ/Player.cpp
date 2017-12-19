@@ -2,15 +2,18 @@
 #include "DirectGraphics.h"
 #include "DirectInput.h"
 #include "CollisionManager.h"
+#include "Collision.h"
 #include "Map.h"
+#include "Event.h"
+
 Player::Player(Map* map) :m_Pos(PLAYER_INNTIAL_POSX, PLAYER_INNTIAL_POSY)
 {
 	m_pMap = map;
-	/*m_Collision = new Collision();
+	m_Collision = new Collision();
 	m_Collision->SetPosition(m_Pos);
-	m_Collision->SetSize(D3DXVECTOR2(PLAYER_W * 2, PLAYER_W * 2));
+	m_Collision->SetSize(D3DXVECTOR2(PLAYER_W * 2 - 15, PLAYER_H * 2 - 15));
 	m_Collision->SetCoolisionId(Collision::PLAYER);
-	CollisionManager::GetcollisionManager()->AddCollision(m_Collision);*/
+	CollisionManager::GetcollisionManager()->AddCollision(m_Collision);
 }
 
 Player::~Player()
@@ -91,36 +94,46 @@ void Player::Draw()
 
 void Player::Update()
 {
-
 	int** CurrentMap = m_pMap->GetMapDate();
-	int PlayerMapPos_X = m_Pos.x / MAP_W;
-	int PlayerMapPos_Y = m_Pos.y / MAP_H;
+	int PlayerMapPos_X = (m_Pos.x) / MAPTIP_W;
+	int PlayerMapPos_Y = (m_Pos.y)/ MAPTIP_H;
 	CurrentMap[PlayerMapPos_Y][PlayerMapPos_X];
 	//‚±‚ê‚Í’†S“_‚Å‚ ‚½‚è”»’è‚ð‚Æ‚Á‚Ä‚¢‚é
 	if (CurrentMap[PlayerMapPos_Y][PlayerMapPos_X] == 0) {
 		m_HitFlg = true;
+	}
+	if (m_Collision->GetOtherCollisionId() == (Collision::ENEMY)) {
+		m_GameOverFlg = true;
+		Event::GetInstance()->SetPlayerGameOverFlg(m_GameOverFlg);
 	}
 	//“–‚½‚Á‚½ˆ—‚ð‘‚­
 		DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_W], DIK_W);
 		DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_A], DIK_A);
 		DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_S], DIK_S);
 		DirectInput::GetpInstance()->KeyCheck(&m_Key[KEY_D], DIK_D);
-		switch (m_Directon)
-		{
-		case Player::UP:
-			m_Pos.y -= MOVESPEED;
-			break;
-		case Player::DOWN:
-			m_Pos.y += MOVESPEED;
-			break;
-		case Player::RIGHT:
-			m_Pos.x += MOVESPEED;
-			break;
-		case Player::LEFT:
-			m_Pos.x -= MOVESPEED;
-			break;
-		default:
-			break;
+		if (m_Pos.x < MAP_WIDTH && m_Pos.x > 0
+			&& m_Pos.y < MAP_HEIGHT && m_Pos.y > 0) {
+			switch (m_Directon)
+			{
+			case Player::UP:
+				m_Pos.y -= MOVESPEED;
+				break;
+			case Player::DOWN:
+				m_Pos.y += MOVESPEED;
+				break;
+			case Player::RIGHT:
+				m_Pos.x += MOVESPEED;
+				break;
+			case Player::LEFT:
+				m_Pos.x -= MOVESPEED;
+				break;
+			default:
+				break;
+			}
+		}
+		else {
+			m_Pos.x = PLAYER_INNTIAL_POSX;
+			m_Pos.y = PLAYER_INNTIAL_POSY;
 		}
 
 	if (m_Key[KEY_W] == KEY_ON){
@@ -135,6 +148,7 @@ void Player::Update()
 	else if (m_Key[KEY_D] == KEY_ON){
 		m_Directon = RIGHT;	//‚à‚µD‚ª‰Ÿ‚³‚ê‚½‚ç‰E‚ÉŒü‚­
 	}
+	m_Collision->SetPosition(m_Pos);
 }
 
 

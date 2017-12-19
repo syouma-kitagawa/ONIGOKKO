@@ -1,12 +1,16 @@
 #include "Enemy.h"
 #include "DirectGraphics.h"
+#include "CollisionManager.h"
 
-//int Enemy::m_EnemyNum = 0;
 
-Enemy::Enemy(): m_Pos(ENEMY_INNTIAL_POSX, ENEMY_INNTIAL_POSY)
+Enemy::Enemy(float InntialPosX, float InntialPosY, float NextPosX, float NextPosY)
+	: m_Pos(InntialPosX, InntialPosY),m_NextPos(NextPosX, NextPosY)
 {
-	//m_EnemyId = m_EnemyNum;
-	//m_EnemyNum++;
+	m_Collision = new Collision();
+	m_Collision->SetPosition(m_Pos);
+	m_Collision->SetSize(D3DXVECTOR2(ENEMY_W * 2 - 15, ENEMY_H * 2 - 15));
+	m_Collision->SetCoolisionId(Collision::ENEMY);
+	CollisionManager::GetcollisionManager()->AddCollision(m_Collision);
 }
 
 
@@ -21,7 +25,7 @@ void Enemy::Draw()
 		{ -ENEMY_W, -ENEMY_H, 1.f, 1.f, 0xFFFFFFFF, 0.f, 0.f },
 		{  ENEMY_W, -ENEMY_H, 1.f, 1.f, 0xFFFFFFFF, ENEMY_TU, 0.f },
 		{  ENEMY_W,  ENEMY_H, 1.f, 1.f, 0xFFFFFFFF, ENEMY_TU, ENEMY_TV },
-		{ -ENEMY_W,  ENEMY_H, 1.f, 1.f, 0xFFFFFFFF, 0.f, ENEMY_TU }
+		{ -ENEMY_W,  ENEMY_H, 1.f, 1.f, 0xFFFFFFFF, 0.f,  ENEMY_TV }
 	};
 	//位置と頂点情報を代入
 	for (int i = 0; i < 4; i++){
@@ -29,7 +33,6 @@ void Enemy::Draw()
 		EnemyDraw[i].x += m_Pos.x;
 		EnemyDraw[i].y += m_Pos.y;
 	}
-	static int Fcount = 0;
 	int remainder = Fcount % 20;
 	//プレイヤーの向きにごとにアニメーションを変える
 	switch (m_Direction)
@@ -83,4 +86,36 @@ void Enemy::Draw()
 		Fcount = 0;
 	}
 }
-void Enemy::Update() {};
+void Enemy::Update() 
+{
+
+	if (ReverseFlg == false) {
+		if (m_Pos.x < m_NextPos[0]) {
+			m_Direction = RIGHT;
+			m_Pos.x += 1;
+		}
+		else if (m_Pos.y < m_NextPos[1]) {
+			m_Direction = DOWN;
+			m_Pos.y += 1;
+		}
+
+		if (m_Pos.y == m_NextPos[1]) {
+			ReverseFlg = true;
+		}
+	}
+	else {
+	if (m_Pos.x > ENEMY_INNTIAL_POSX) {
+		m_Direction = LEFT;
+		m_Pos.x -= 1;
+	}
+	else if (m_Pos.y > ENEMY_INNTIAL_POSY) {
+		m_Direction = UP;
+		m_Pos.y -= 1;
+	}
+	if (m_Pos.x == ENEMY_INNTIAL_POSX && m_Pos.y == ENEMY_INNTIAL_POSY) {
+		ReverseFlg = false;
+	}
+	}
+	m_Collision->SetPosition(m_Pos);
+
+};
